@@ -1,0 +1,19 @@
+package tile;
+
+public class ChanceCard extends Tile 
+{
+//variables 
+	private String chance;
+	
+	//getter and setter
+	
+	public void setChance(String chance)
+	{
+		this.chance = chance;
+	}
+	
+	public String getChance()
+	{
+		return this.chance;
+	}
+}
