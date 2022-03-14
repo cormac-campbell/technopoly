@@ -1,0 +1,254 @@
+package player;
+
+import tile.Tile;
+import tile.ObjectiveCard;
+import tile.Property;
+
+public class Player {
+	// Class Attributes
+	private String username;
+	private double funds;
+	private Tile currentPosition;
+	private int currentPositionInt;
+	private Property[] ownedProperty = new Property[20];
+	private ObjectiveCard[] objectives = new ObjectiveCard[5];
+	//objective variables 
+	private int chanceCardCount = 0;
+	private int passGoCount = 0;
+	private double amountCollected = 0;
+	private boolean bankrupt;
+	
+	
+	// Constructors  
+	public Player(String username, double funds, Tile currentPosition, Property[] ownedProperty, String[] objectives, int chanceCardCount, int passGoCount, int amountCollected, boolean bankrupt) 
+	{
+		this.currentPositionInt = 0;
+		setUsername(username);
+		setFunds(funds);
+		setCurrentPosition(currentPosition);
+		setOwnedProperty(ownedProperty);
+		setObjectives();
+		setChanceCardCount(chanceCardCount);
+		setPassGoCount(passGoCount);
+		setAmountCollected(amountCollected);
+		setBankrupt(bankrupt);
+	}
+	
+	public Player()
+	{
+		this(null,0.0,null,null,null,0,0,0, false);
+	}
+	//bankrupt getter and setter
+	public void setBankrupt(boolean bankrupt)
+	{
+		this.bankrupt = bankrupt;
+	}
+	
+	public boolean getBankrupt()
+	{
+		return this.bankrupt;
+	}
+	//getters and setters for objective variables
+			public void setChanceCardCount(int chanceCardCount)
+			{
+				this.chanceCardCount = chanceCardCount;
+			}
+			
+			public void setPassGoCount(int passGoCount)
+			{
+				this.passGoCount = passGoCount;
+			}
+			
+			public void setAmountCollected(double amountCollected)
+			{
+				this.amountCollected = amountCollected;
+			}
+			
+			public int getChanceCardCount()
+			{
+				return this.chanceCardCount;
+			}
+			
+			public int getPassGoCount()
+			{
+				return this.passGoCount;
+			}
+			
+			public double getAmountCollected()
+			{
+				return this.amountCollected;
+			}
+			
+			//setter for objectives
+			
+			public void setObjectives()
+			{
+				ObjectiveCard obj = new ObjectiveCard();
+				obj.setReward(100.00);
+				objectives[0] = obj;
+				ObjectiveCard obj2 = new ObjectiveCard();
+				obj2.setReward(200.00);
+				objectives[1] = obj2;
+				ObjectiveCard obj3 = new ObjectiveCard();
+				obj3.setReward(100.00);
+				objectives[2] = obj3;
+				ObjectiveCard obj4 = new ObjectiveCard();
+				obj4.setReward(100.00);
+				objectives[3] = obj4;
+				ObjectiveCard obj5 = new ObjectiveCard();
+				obj5.setReward(50.00);
+				objectives[4] = obj5;
+			}
+			
+			//getter for objectives
+			public String getObjectives()
+			{
+				String str1 = "Objective one not completed.";
+				String str2 = "Objective two not completed.";
+				String str3 = "Objective three not completed.";;
+				String str4 = "Objective four not completed.";;
+				String str5 = "Objective five not completed.";;
+				
+				if (objectives[0].getCompleted() == true)
+					str1 = "Objective one completed.";
+				
+				if (objectives[1].getCompleted() == true)
+					str2 = "Objective two completed.";
+				
+				if (objectives[2].getCompleted() == true)
+					str3 = "Objective three completed.";
+				
+				if (objectives[3].getCompleted() == true)
+					str4 = "Objective four completed.";
+				
+				if (objectives[4].getCompleted() == true)
+					str5 = "Objective five completed.";
+				
+				return str1 + "\n" + str2 + "\n" + str3 + "\n" + str4 + "\n" + str5;
+			}
+		
+	// Getters
+	public String getUsername() {
+		return username;
+	}
+	public double getFunds() {
+		return funds;
+	}
+	public Object getCurrentPosition() {
+		return currentPosition;
+	}
+	public Property[] getOwnedProperty() {
+		return ownedProperty;
+	}	
+	//public String[] getObjectives() {
+	//	return objectives;
+	//}	
+	
+	public int getCurrentPositionInt() {
+		return currentPositionInt;
+	}
+	
+	// Setters
+	public void setUsername(String username) {
+		this.username=username;
+	}
+	public void setFunds(double funds) {
+		this.funds=funds;
+	}
+	public void setCurrentPosition(Tile currentPosition) {
+		this.currentPosition=currentPosition;
+	}
+	public void setOwnedProperty(Property[] ownedProperty) {
+		this.ownedProperty=ownedProperty;
+	}
+	//public void setObjectives(String[] objectives) {
+	//	this.objectives=objectives;
+	//}
+	// Class Methods
+	public void changeFunds(double amount) {
+		this.funds+=amount;
+	}
+	
+	public void addOwnedTile(Property newProperty) {
+		// add newTile to ownedTiles array
+		int index=0;
+		Property[] newOwnedProperty = new Property[20];
+		for(Property p:ownedProperty) {
+			if(this.ownedProperty[index]!=null) {
+				newOwnedProperty[index]=this.ownedProperty[index];
+			}
+			index++;	
+		}
+		newOwnedProperty[index]=newProperty;
+		this.ownedProperty=newOwnedProperty;
+	}
+
+	public void setCurrentPositionInt(int currentPositionInt) {
+		this.currentPositionInt = currentPositionInt;
+	}
+	
+	//checking if objectives are done
+			public void checkObjectives()
+			{
+				//checking objective one
+				if (passGoCount == 5  && objectives[0].getCompleted() == false)
+				{
+					objectives[0].setCompleted(true);
+					setFunds(getFunds() + objectives[0].getReward());
+				}
+				//checking objective two
+				if(objectives[1].getCompleted() == false)
+				{
+				checkTileSets();
+				if (objectives[1].getCompleted() == true)
+					setFunds(getFunds() + objectives[1].getReward());
+				}
+				//checking objective three
+				if (getFunds() >= 1500.00 && objectives[2].getCompleted() == false)
+				{
+					objectives[2].setCompleted(true);
+					setFunds(getFunds() + objectives[2].getReward());
+				}
+				
+				//checking objective four 
+				if (amountCollected >= 500.00 && objectives[3].getCompleted() == false)
+				{
+					objectives[3].setCompleted(true);
+					setFunds(getFunds() + objectives[3].getReward());
+				}
+				
+				//checking objective five
+				if (chanceCardCount == 5  && objectives[4].getCompleted() == false)
+				{
+					objectives[4].setCompleted(true);
+					setFunds(getFunds() + objectives[4].getReward());
+				}
+			}
+			
+			//checking for completed sets
+			public void checkTileSets()
+			{
+				if(ownedProperty == null)
+				{
+					return;
+				}
+				else
+				{
+					for (int i = 1; i < 9; i++)
+					{
+						int count = 0;
+						for(int x = 0; x < 28; x++)
+						{
+							if (ownedProperty[x] != null)
+							{
+							if (ownedProperty[x].getTileGroup() == i)
+								count++;
+							}
+						}
+						if(count == 3)
+							objectives[1].setCompleted(true);
+					}
+				}
+			}
+	
+}
