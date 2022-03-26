@@ -1,31 +1,29 @@
 package tile;
 
 public class ObjectiveCard{
-//variables 
+	// Variables 
 	private boolean completed = false;
 	private double reward;
 	
-	//setters
-	
-	public void setReward(double reward)
+	// Getters 
+	public boolean getCompleted()
 	{
-		this.reward = reward;
+		return this.completed;
 	}
-	
-	public void setCompleted(boolean completed)
-	{
-		this.completed = completed;
-	}
-	
-	//getters 
 	
 	public double getReward()
 	{
 		return this.reward;
 	}
 	
-	public boolean getCompleted()
+	// Setters
+	public void setCompleted(boolean completed)
 	{
-		return this.completed;
+		this.completed = completed;
+	}
+
+	public void setReward(double reward)
+	{
+		this.reward = reward;
 	}
 }

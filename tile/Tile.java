@@ -2,49 +2,49 @@ package tile;
 
 public class Tile 
 {
-//variables 
+	// Variables 
 	private int tilePosition;
 	private int tileGroup;
 	private String name;
 	
-	//Empty Constructor
+	// Empty Constructor
 	public Tile() {
 		
 	}
 	
+	// Parameterised Constructor
 	public Tile(String name) {
 		this.name = name;
 	}
 	
 	
-	//getters and setters
-	public void setTilePosition(int tilePosition)
-	{
-		this.tilePosition = tilePosition;
-	}
-	
+	// Getters and Setters
 	public int getTilePosition()
 	{
 		return this.tilePosition;
+	}	
+		
+	public String getName() {
+		return this.name;
+	}
+
+	public int getTileGroup()
+	{
+		return this.tileGroup;
+	}
+	
+	public void setTilePosition(int tilePosition)
+	{
+		this.tilePosition = tilePosition;
 	}
 	
 	public void setName(String name) {
 		this.name = name;
 	}
 	
-	public String getName() {
-		return this.name;
-	}
-	
-	//zero if not a property
+	// Zero if not a property
 	public void setTileGroup(int tileGroup)
 	{
 		this.tileGroup = tileGroup;
-	}
-	
-	public int getTileGroup()
-	{
-		return this.tileGroup;
-	}
-	
+	}	
 }

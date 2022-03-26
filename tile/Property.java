@@ -7,13 +7,10 @@ public class Property extends Tile
 	private String name;
 	private Player owner;
 	private double price;
-	private double penalty; // The amount a player owes if they land on an owned tile
+	private double penalty;
 	private int groupNum;
 	
-	
-	
-	
-	// No-Argument Constructor
+	// Empty Constructor
 	public Property() {
 		this.name = null;
 		this.owner = null;
@@ -32,6 +29,31 @@ public class Property extends Tile
 	}
 	
 	// Methods 
+	// Getters 
+	public String getName()
+	{
+		return this.name;
+	}
+	
+	public Player getOwner()
+	{
+		return this.owner;
+	}
+	
+	public double getPrice() 
+	{
+		return this.price;
+	}
+	
+	public double getPenalty()
+	{
+		return this.penalty;
+	}
+	
+	public int getGroupNum()
+	{
+		return this.groupNum;
+	}
 	// Setters 
 	public void setName(String name)
 	{
@@ -58,39 +80,18 @@ public class Property extends Tile
 		this.groupNum = groupNum;
 	}
 	
-	// Getters 
-	public String getName()
-	{
-		return this.name;
-	}
-	
-	public Player getOwner()
-	{
-		return this.owner;
-	}
-	
-	public double getPrice() 
-	{
-		return this.price;
-	}
-	
-	public double getPenalty()
-	{
-		return this.penalty;
-	}
-	
-	public int getGroupNum()
-	{
-		return this.groupNum;
-	}
 	
 	// Get Property Details method
 	public String getDetails()
 	{
-		return ("Name: "+ this.getName()+
-				"\nOwner: "+this.getOwner().getUsername()+
-				"\nPrice: "+this.getPrice())+
-				"\nPenalty: "+this.getPenalty();
+		if (this.getOwner()!=null) {
+			return ("Name: " + this.getName() + "\nOwner: " + this.getOwner().getUsername() + "\nPrice: "
+					+ this.getPrice()) + "\nPenalty: " + this.getPenalty();
+		}
+		else {
+			return ("Name: " + this.getName() + "\nOwner: NULL \nPrice: "
+					+ this.getPrice()) + "\nPenalty: " + this.getPenalty();
+		}
 	}
 	// Invest method
 	public void investTile(Player investor)
